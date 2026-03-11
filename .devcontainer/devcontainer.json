@@ -1,0 +1,26 @@
+{
+  "name": "Doco-CD Dev (Go + Svelte)",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "mounts": [
+    "source=${localWorkspaceFolder}/frontend,target=/workspace/frontend,type=bind",
+    "source=${localWorkspaceFolder}/doco-cd,target=/workspace/doco-cd,type=bind"
+  ],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "svelte.svelte-vscode",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "golang.go"
+      ]
+    }
+  },
+  "forwardPorts": [5173, 80],
+  "postCreateCommand": "cd /workspace/frontend && pnpm install && cd /workspace/doco-cd && go mod download",
+  "remoteUser": "root",
+  "runArgs": ["--privileged"]
+}
